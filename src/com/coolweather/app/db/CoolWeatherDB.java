@@ -31,8 +31,8 @@ public class CoolWeatherDB {
 	 * constructor
 	 */
 	private CoolWeatherDB(Context context){
-		CoolWeatherOpenHelper dbHelper = new CoolWeatherOpenHelper(context, DB_NAME, null, VERSION, null);
-		dbHelper.getWritableDatabase();
+		CoolWeatherOpenHelper dbHelper = new CoolWeatherOpenHelper(context, DB_NAME, null, VERSION);
+		db = dbHelper.getWritableDatabase();
 	}
 	
 	/**
@@ -61,7 +61,7 @@ public class CoolWeatherDB {
 	/**
 	 * get province info from db
 	 */
-	public List<Province> LoadProvinces(){
+	public List<Province> loadProvinces(){
 		List<Province> list = new ArrayList<Province>();
 		
 		Cursor cursor = db.query("Province", null, null, null, null, null, null);
@@ -93,12 +93,12 @@ public class CoolWeatherDB {
 	/**
 	 * get city info of province from db
 	 */
-	public List<City> LoadCities(int provinceId){
+	public List<City> loadCities(int provinceId){
 		
 		List<City> citiesList = new ArrayList<City>();
 		
 		Cursor cursor = db.query("City", null, "province_id = ?", 
-				new String[]{String.valueOf("provinceId")}, null, null, null);
+				new String[]{String.valueOf(provinceId)}, null, null, null);
 		if(cursor.moveToFirst()){
 			do {
 				City city = new City();
@@ -129,7 +129,7 @@ public class CoolWeatherDB {
 	/**
 	 * get county of City from db
 	 */
-	public List<County> LoadCounties(int cityId){
+	public List<County> loadCounties(int cityId){
 		List<County> countiesList = new ArrayList<County>();
 		
 		Cursor cursor = db.query("County", null, "city_id = ?", 

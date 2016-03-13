@@ -26,16 +26,15 @@ public class CoolWeatherOpenHelper extends SQLiteOpenHelper {
 	/**
 	 * County
 	 */
-	public static final String CREATE_COUNTY = "create table County)"
+	public static final String CREATE_COUNTY = "create table County("
 			+ "id integer primary key autoincrement,"
 			+ "county_name text,"
-			+ "county_code,"
+			+ "county_code text,"
 			+ "city_id integer)";
 
 
-	public CoolWeatherOpenHelper(Context context, String name, CursorFactory factory, int version,
-			DatabaseErrorHandler errorHandler) {
-		super(context, name, factory, version, errorHandler);
+	public CoolWeatherOpenHelper(Context context, String name, CursorFactory factory, int version) {
+		super(context, name, factory, version);
 		// TODO Auto-generated constructor stub
 	}
 
