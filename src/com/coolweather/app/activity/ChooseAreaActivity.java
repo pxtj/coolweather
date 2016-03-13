@@ -14,6 +14,7 @@ import com.coolweather.app.util.Utility;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -89,6 +90,10 @@ public class ChooseAreaActivity extends Activity {
 				}else if (currentLevel == LEVEL_CITY) {
 					selectedCity = cityList.get(position);
 					queryCounties();
+				} else if (currentLevel == LEVEL_COUNTY) {
+					//Intent intent = new Intent();
+					//startActivities(intent);
+					
 				}
 			}
 		});
