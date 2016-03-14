@@ -1,6 +1,7 @@
 package com.coolweather.app.activity;
 
 import com.coolweather.app.R;
+import com.coolweather.app.service.AutoUpdateService;
 import com.coolweather.app.util.HttpCallbackListener;
 import com.coolweather.app.util.HttpUtil;
 import com.coolweather.app.util.Utility;
@@ -30,6 +31,8 @@ public class WeatherActivity extends Activity implements OnClickListener{
 	private Button switchCityBtn;
 	private Button refreshWeatherBtn;
 	
+	private TextView toText;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -45,6 +48,7 @@ public class WeatherActivity extends Activity implements OnClickListener{
 		weatherDespText = (TextView)findViewById(R.id.weather_desp);
 		temp1Text = (TextView)findViewById(R.id.temp1);
 		temp2Text = (TextView)findViewById(R.id.temp2);
+		toText = (TextView)findViewById(R.id.to_text);
 
 		switchCityBtn = (Button)findViewById(R.id.switch_city);
 		refreshWeatherBtn = (Button)findViewById(R.id.refresh_weather);
@@ -97,7 +101,7 @@ public class WeatherActivity extends Activity implements OnClickListener{
 	private void queryWeatherInfo(String weatherCode){
 		String httpUrl = "http://www.weather.com.cn/data/cityinfo/" +
 				weatherCode + ".html";
-		queryFromServer(httpUrl, "weatherCode")
+		queryFromServer(httpUrl, "weatherCode");
 	}
 	
 	private void queryFromServer(final String httpUrl, final String type){
@@ -110,7 +114,7 @@ public class WeatherActivity extends Activity implements OnClickListener{
 						String[] array = response.split("\\|");
 						if (array != null & array.length == 2) {
 							String weatherCode = array[1];
-							queryWeatherCode(weatherCode);
+							queryWeatherInfo(weatherCode);
 						}
 					}
 				} else if (type.equals("weatherCode")) {
@@ -142,7 +146,21 @@ public class WeatherActivity extends Activity implements OnClickListener{
 	
 	
 	public void showWeather(){
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 		
+		cityNameText.setText(pref.getString("city_name", ""));
+		publishTimeText.setText(pref.getString("publish_time", ""));
+		currentDateText.setText(pref.getString("current_date", ""));
+		weatherDespText.setText(pref.getString("weather_desp", ""));
+		temp1Text.setText(pref.getString("temp1", ""));
+		temp2Text.setText(pref.getString("temp2", ""));
+		toText.setText("~");
+		
+		weatherInfoLayout.setVisibility(View.VISIBLE);
+		cityNameText.setVisibility(View.VISIBLE);
+		
+		Intent intent = new Intent(this, AutoUpdateService.class);
+		startService(intent);
 	}
 	
 	

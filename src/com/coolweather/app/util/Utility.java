@@ -97,8 +97,8 @@ public class Utility {
 			JSONObject weatherInfo = jsonObject.getJSONObject("weatherinfo");
 			String cityName = weatherInfo.getString("city");
 			String weatherCode = weatherInfo.getString("cityid");
-			String temp1 = weatherInfo.getString("temp1");
-			String temp2 = weatherInfo.getString("temp2");
+			String temp1 = weatherInfo.getString("temp2");
+			String temp2 = weatherInfo.getString("temp1");
 			String weatherDesp = weatherInfo.getString("weather");
 			String publishTime = weatherInfo.getString("ptime");
 			saveWeatherInfo(context, cityName, weatherCode, temp1, temp2, 
